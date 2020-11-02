@@ -1,0 +1,10 @@
+name: ubicenter-dev
+dependencies:
+- python
+- plotly
+- pandas
+- numpy
+- pip
+- pip:
+  - jupyter-book
+  - "git+https://github.com/PSLmodels/microdf.git"
