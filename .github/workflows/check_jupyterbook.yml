@@ -13,7 +13,7 @@ jobs:
       - name: Setup Miniconda
         uses: goanpeca/setup-miniconda@v1
         with:
-          activate-environment: reponame
+          activate-environment: ubicenter-dev
           environment-file: environment.yml
           python-version: 3.8
           auto-activate-base: false
