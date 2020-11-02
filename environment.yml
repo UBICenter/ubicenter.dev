@@ -1,4 +1,4 @@
-name: reponame
+name: ubicenter-dev
 dependencies:
 - python
 - plotly
