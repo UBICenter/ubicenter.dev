@@ -1,5 +1,16 @@
-format: jb-article
+format: jb-book
 root: index
-sections:
-- url: https://ubicenter.org
-  title: UBI Center home
+parts:
+  - caption: Contributor guide
+    chapters:
+    - file: contributors/code/index
+      sections:
+        - file: contributors/code/best-practices
+        - file: contributors/code/style
+    - file: contributors/writing/index
+      sections:
+        - file: contributors/writing/style
+  - caption: UBI Center products
+    chapters:
+    - url: https://ubicenter.org
+      title: UBI Center homepage
