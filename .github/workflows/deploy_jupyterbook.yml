@@ -1,38 +1,38 @@
-name: Build and Deploy Jupyter Book
+name: Build and deploy that Jupyter Book builds
+
+# Only run this when the main branch changes
 on:
   push:
     branches:
-      - main
+    - main
+
+# This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
-  build-and-deploy:
+  deploy-book:
     if: github.repository == 'UBICenter/ubicenter.dev'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-      # If you're using actions/checkout@v2 you must set persist-credentials to
-      # false in most cases for the deployment to work correctly.
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+    - uses: actions/checkout@v2
 
-      - name: Setup Miniconda
-        uses: goanpeca/setup-miniconda@v1
-        with:
-          activate-environment: ubicenter-dev
-          environment-file: environment.yml
-          python-version: 3.8
-          auto-activate-base: false
+    # Install dependencies
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
 
-      - name: Build # Build Jupyter Book
-        shell: bash -l {0}
-        run: |
-          cd jb
-          jb build .
-          touch _build/html/.nojekyll
+    - name: Install dependencies
+      run: |
+        pip install jupyter-book
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: jb/_build/html # The folder the action should deploy.
+
+    # Build the book
+    - name: Build the book
+      run: |
+        jupyter-book build jb
+
+    # Push the book's HTML to github-pages
+    - name: GitHub Pages action
+      uses: peaceiris/actions-gh-pages@v3.8.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: jb/_build/html

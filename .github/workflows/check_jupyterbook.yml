@@ -1,25 +1,27 @@
 name: Test that Jupyter Book builds
+
 on: [push, pull_request]
+
+# This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
-  build-and-deploy:
+  deploy-book:
     if: github.repository == 'UBICenter/ubicenter.dev'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+    - uses: actions/checkout@v2
 
-      - name: Setup Miniconda
-        uses: goanpeca/setup-miniconda@v1
-        with:
-          activate-environment: ubicenter-dev
-          environment-file: environment.yml
-          python-version: 3.8
-          auto-activate-base: false
+    # Install dependencies
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
 
-      - name: Build
-        shell: bash -l {0}
-        run: |
-          cd jb
-          jb build .
+    - name: Install dependencies
+      run: |
+        pip install jupyter-book
+
+
+    # Build the book
+    - name: Build the book
+      run: |
+        jupyter-book build jb

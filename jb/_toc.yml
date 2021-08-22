@@ -1,6 +1,16 @@
-# Name homepage index.
-- file: index
-# Add other pages...
-# And put the UBI Center homepage at the bottom.
-- url: https://ubicenter.org
-  title: UBI Center home
+format: jb-book
+root: index
+parts:
+  - caption: Contributor guide
+    chapters:
+    - file: contributors/code/index
+      sections:
+        - file: contributors/code/best-practices
+        - file: contributors/code/style
+    - file: contributors/writing/index
+      sections:
+        - file: contributors/writing/style
+  - caption: UBI Center products
+    chapters:
+    - url: https://ubicenter.org
+      title: UBI Center homepage
